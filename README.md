@@ -1,4 +1,4 @@
-Keywords: Google cloud, GKE, Kubernetes, Terraform, Web3, Blockchain, DeFi, Java, Springboot, Nest.js
+Keywords: Google cloud, GKE, Kubernetes, Terraform, Web3, Blockchain, DeFi, Java, Springboot, TypeScript, Nest.js
 
 Monthly subscription can add up. 
 
@@ -49,6 +49,9 @@ They provide a free version
 [See the screenshot]
 
 Show ping test
+
+https://www.site24x7.com/tools/ping-test.html
+
 From the results of the speed test, From Virginia, the response time is 2 ms, indicating a very fast connection.
 
 1. Location
@@ -123,8 +126,64 @@ You should see similar output:
 
 
 # Uniswap server
+Note some differences from the tutorial that changed
+- several utilities methods moved from `ethers` to `@ethersproject/bignumber` and `@ethersproject/units`
+
+In the uniswap example code, we try to call the quoteExactInputSingle method on a contract instance, but TypeScript is not recognizing it as a valid method. This can happen if the contract's ABI does not include the method or if the contract instance is not typed correctly.
+
+To resolve this, you need to ensure that the ABI includes the quoteExactInputSingle method and that the contract instance is typed correctly. Here's how you can define the ABI and create a properly typed contract instance:
+
+Define the ABI with the quoteExactInputSingle method.
+Create a contract instance with the correct type.
+
 Next, lets create an Nest.js application for connecting to Uniswap
 
 ``` bash
 mkdir uniswap-server
+cd uniswap-server
 ```
+
+Install TypeScript
+``` bash
+npm install --save-dev typescript
+tsc --init
+```
+
+Install ethereum and uniswap libraries
+``` bash
+npm init
+npm install ethers
+npm install @uniswap/v3-sdk
+npm install @uniswap/sdk-core
+npm install @ethersproject/bignumber
+npm install @ethersproject/units
+```
+
+Create a `src` directory:
+``` bash
+mkdir src
+cd src
+```
+
+Add the following files
+
+quote.ts
+
+config.ts
+Add the the `http` address from Quicknode.
+
+In `tsconfig.json`, uncomment`"resolveJsonModule": true,` to enable importing .json files.
+
+Compile, and Run it!
+``` bash
+tsc
+node index.js
+```
+
+Obtaining a quote from Uniswap V3 results in state-changing operations on the blockchain; hence, it is actually not a read-only operation, which can be used in a `view` function. Instead, the quoter contract uses a crafty solution that simulates the state-changing transaction using a `eth_call` request, and deliberately places a `revert` operation at the end of the contract to return the results from the transaction, while also reverting the state.
+
+
+## Adding a Signer
+If you are coming from Web3.js, you are used to a Provider offering both read and write access. In Ethers, all write operations are further abstracted into another Object, the Signer.
+
+The guide uses the Quoter address, instead of QuoterV2
