@@ -10,23 +10,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const quote_1 = require("./quote");
-const wallet_1 = require("./wallet");
 const providers_1 = require("./providers");
 const config_1 = require("./config");
 const conversion_1 = require("./conversion");
-// Define an async function to call getPoolConstants
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             // Setup
             const config = config_1.MainnetConfig;
             const provider = (0, providers_1.getProvider)();
-            // Create a wallet with the provider, necessary for signing transactions
-            const wallet = (0, wallet_1.createWallet)(provider);
             // Input
             const amountIn = 10000;
             // Await the result of fetchQuote
-            const results = yield (0, quote_1.fetchQuote)(amountIn, wallet, config, provider);
+            const results = yield (0, quote_1.fetchQuote)(amountIn, config, provider);
             // Parse results
             const [amountOut, , , gasEstimate] = results;
             // Log the result to the console

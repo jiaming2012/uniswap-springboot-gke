@@ -20,9 +20,9 @@ const IUniswapV3Pool_json_1 = __importDefault(require("@uniswap/v3-core/artifact
 const constants_1 = require("./constants");
 const conversion_1 = require("./conversion");
 // Use type assertions to inform TypeScript about `quoteExactInputSingle` existence:
-function fetchQuote(amountInInput, wallet, config, provider) {
+function fetchQuote(amountInInput, config, provider) {
     return __awaiter(this, void 0, void 0, function* () {
-        const quoterContract = new ethers_1.ethers.Contract(constants_1.QUOTER_CONTRACT_ADDRESS, QuoterV2_json_1.default.abi, wallet);
+        const quoterContract = new ethers_1.ethers.Contract(constants_1.QUOTER_CONTRACT_ADDRESS, QuoterV2_json_1.default.abi, provider);
         const poolConstants = yield getPoolConstants(config, provider);
         const amountIn = (0, conversion_1.fromReadableAmount)(amountInInput, config.tokens.in.decimals);
         const params = {

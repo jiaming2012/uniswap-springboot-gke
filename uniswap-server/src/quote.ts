@@ -12,7 +12,7 @@ import { fromReadableAmount } from './conversion'
 
 
 // Use type assertions to inform TypeScript about `quoteExactInputSingle` existence:
-export async function fetchQuote(amountInInput: number, wallet: ethers.Wallet, config: Config, provider: ethers.JsonRpcProvider): Promise<Array<BigNumber>> {
+export async function fetchQuote(amountInInput: number, config: Config, provider: ethers.JsonRpcProvider): Promise<Array<BigNumber>> {
   interface QuoteExactInputSingleParams {
     tokenIn: string
     tokenOut: string
@@ -21,7 +21,7 @@ export async function fetchQuote(amountInInput: number, wallet: ethers.Wallet, c
     sqrtPriceLimitX96: number
   }
 
-  const quoterContract = new ethers.Contract(QUOTER_CONTRACT_ADDRESS, QuoterV2.abi, wallet) as ethers.Contract & {
+  const quoterContract = new ethers.Contract(QUOTER_CONTRACT_ADDRESS, QuoterV2.abi, provider) as ethers.Contract & {
         quoteExactInputSingle: {
           staticCall: (params: QuoteExactInputSingleParams) => Promise<Array<BigNumber>>
         }

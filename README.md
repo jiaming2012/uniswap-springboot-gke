@@ -187,3 +187,10 @@ Obtaining a quote from Uniswap V3 results in state-changing operations on the bl
 If you are coming from Web3.js, you are used to a Provider offering both read and write access. In Ethers, all write operations are further abstracted into another Object, the Signer.
 
 The guide uses the Quoter address, instead of QuoterV2
+
+you can pass either a wallet or a provider here
+``` javascript
+new ethers.Contract(QUOTER_CONTRACT_ADDRESS, QuoterV2.abi, provider) 
+```
+
+Since we are not actually sending a transaction to the blockchain, we can choose to only pass a provider.
