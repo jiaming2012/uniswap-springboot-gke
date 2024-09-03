@@ -20,7 +20,7 @@ export interface Config {
 export const MainnetConfig: Config = {
   rpc: {
     local: '',
-    mainnet: 'https://little-frequent-road.quiknode.pro/a80d002e9b6b2ae501f74e577b962aac110a9368',
+    mainnet: '',
   },
   tokens: {
     in: USDC_TOKEN,
