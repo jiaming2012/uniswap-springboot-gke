@@ -8,9 +8,16 @@ In order to connect to the blockchain, an http ethereum mainnet endpoint is requ
 ``` bash
 cd path/to/uniswap-springboot-gke/web3/uniswap-server
 npm install
+npm install -g yarn
+yarn add typescript --dev
 ```
 
 # Compile
 ``` bash
-npx tsc
+yarn tsc
+```
+
+# Run it
+``` bash
+node src/index.js
 ```
