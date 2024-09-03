@@ -12,6 +12,9 @@ npm install -g yarn
 yarn add typescript --dev
 ```
 
+# Configuration
+Add the `http` Quicknode endpoint to `mainnet: '',` in `src/config.ts`.
+
 # Compile
 ``` bash
 yarn tsc
