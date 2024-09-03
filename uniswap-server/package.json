@@ -17,6 +17,7 @@
     "ethers": "^6.13.2"
   },
   "devDependencies": {
+    "@types/ws": "^8.5.12",
     "tsc": "^2.0.4",
     "typescript": "^5.5.4"
   }
