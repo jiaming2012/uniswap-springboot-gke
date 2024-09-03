@@ -44,9 +44,7 @@ mkdir gke-cluster
 cd gke-cluster
 ```
 
-Set up quicknode
-They provide a free version
-[See the screenshot]
+
 
 Show ping test
 
