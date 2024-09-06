@@ -2,6 +2,7 @@ import { fetchQuote } from './quote';
 import { getProvider } from './providers'
 import { MainnetConfig } from './config';
 import { toReadableAmount } from './conversion';
+import { publishQuote } from './pubsub';
 
 async function main() {
   try {
@@ -16,12 +17,13 @@ async function main() {
     const results = await fetchQuote(amountIn, config, provider);
 
     // Parse results
-    const [amountOut, , , gasEstimate] = results;
+    const [swapResult, , , gasEstimate] = results;
+    const amountOut = toReadableAmount(swapResult, config.tokens.out.decimals);
+    const gasEstimateStr = gasEstimate.toString();
 
-    // Log the result to the console
-    console.log(`${config.tokens.in.symbol} in: ${amountIn}`);
-    console.log(`${config.tokens.out.symbol} out: ${toReadableAmount(amountOut, config.tokens.out.decimals)}`);
-    console.log(`Gas estimate: ${gasEstimate.toString()} wei`);
+    // Publish to Pub/Sub
+    const messageId = await publishQuote('uniswapv3-quotes-mainnet', config.tokens.in.symbol, config.tokens.out.symbol, amountIn.toString(), amountOut, gasEstimateStr);
+    console.log(`Successfully published to Pub/Sub with Message ID: ${messageId}`);
 
   } catch (error) {
     // Handle any errors that occur
@@ -29,5 +31,5 @@ async function main() {
   }
 }
 
-// Call the main function
-main();
+// Run the main function every 15 seconds
+setInterval(main, 15000);

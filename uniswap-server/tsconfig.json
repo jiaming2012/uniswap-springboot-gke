@@ -9,5 +9,9 @@
     "resolveJsonModule": true,
     "strictPropertyInitialization": false,
     "strictNullChecks": false,  /* When type checking, take into account 'null' and 'undefined'. */
-  }
+    "outDir": "./dist", // Output directory for compiled JavaScript files
+    "rootDir": "./src"  // Root directory of TypeScript source files
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
