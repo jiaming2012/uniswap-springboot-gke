@@ -5,3 +5,4 @@ yarn.lock
 package-lock.json
 gke_pubsub_key.json
 dist
+secrets.yaml
